@@ -1,0 +1,122 @@
+:root {
+  --dark: #000000;
+  --orange: #ff4500;
+}
+
+html {
+  background-image: url(assets/img/background.jpg);
+  background-size: cover;
+}
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+}
+
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.theme-change-btn {
+  position: absolute;
+  top: 30px;
+  left: 50px;
+  padding: 5px 10px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border: 3px solid #666666;
+  border-radius: 5px;
+  font-size: 16px;
+  color: var(--dark);
+  cursor: pointer;
+}
+
+.btn {
+  margin: 0 10px;
+  padding: 10px 30px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border: 3px solid var(--dark);
+  border-radius: 5px;
+  color: var(--orange);
+  font-size: 22px;
+  cursor: pointer;
+  transition: all 0.07s ease;
+}
+
+.btn:hover {
+  transform: scale(1.1);
+  background-color: var(--dark);
+  border-color: var(--orange);
+  box-shadow: 0 0 1rem var(--orange);
+}
+
+.btn:active {
+  transform: scale(1);
+  border: 3px solid #666666;
+  box-shadow: none;
+}
+
+.keys {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.key {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100px;
+  margin: 10px;
+  padding: 5px 7px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border: 3px solid var(--dark);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.07s ease;
+}
+
+.key kbd {
+  font-size: 48px;
+  color: #ffffff;
+}
+
+.key span {
+  font-size: 12px;
+  color: var(--orange);
+  text-transform: uppercase;
+}
+
+.playing {
+  transform: scale(1.1);
+  border: 3px solid var(--orange);
+  box-shadow: 0 0 1rem var(--orange);
+}
+
+.light-theme {
+  background-image: url(assets/img/ligthTheme.jpeg);
+  background-size: cover;
+}
+
+.dark-btn {
+  background-color: rgba(0, 0, 0, 0.4);
+  border: 3px solid var(--dark);
+  color: var(--dark);
+}
+
+.dark-btn:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.dark-div {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.dark-div kbd {
+  color: var(--dark);
+}

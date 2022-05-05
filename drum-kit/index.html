@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="#" />
+    <link rel="stylesheet" href="style.css" />
+    <title>JS Drum-Kit</title>
+  </head>
+  <body>
+    <div class="container" id="container">
+      <button class="theme-change-btn" onclick="changeTheme()">
+        Ligth Theme
+      </button>
+      <div>
+        <button class="btn" onclick="changeSound(this)" value="btn1">
+          Drums
+        </button>
+        <button class="btn" onclick="changeSound(this)" value="btn2">
+          Piano
+        </button>
+      </div>
+      <div class="keys" id="keys"></div>
+    </div>
+    <script>
+      let arrayKeys = [
+        {
+          dataKey: "65",
+          kbd: "A",
+          span: "clap",
+          drumSound: "assets/sounds/clap.wav",
+          pianoSound: "assets/sounds/piano/do.wav",
+        },
+        {
+          dataKey: "83",
+          kbd: "S",
+          span: "hihat",
+          drumSound: "assets/sounds/hihat.wav",
+          pianoSound: "assets/sounds/piano/re.wav",
+        },
+        {
+          dataKey: "68",
+          kbd: "D",
+          span: "kick",
+          drumSound: "assets/sounds/kick.wav",
+          pianoSound: "assets/sounds/piano/mi.wav",
+        },
+        {
+          dataKey: "70",
+          kbd: "F",
+          span: "openhat",
+          drumSound: "assets/sounds/openhat.wav",
+          pianoSound: "assets/sounds/piano/fa.wav",
+        },
+        {
+          dataKey: "71",
+          kbd: "G",
+          span: "boom",
+          drumSound: "assets/sounds/boom.wav",
+          pianoSound: "assets/sounds/piano/sol.wav",
+        },
+        {
+          dataKey: "72",
+          kbd: "H",
+          span: "ride",
+          drumSound: "assets/sounds/ride.wav",
+          pianoSound: "assets/sounds/piano/lja.wav",
+        },
+        {
+          dataKey: "74",
+          kbd: "J",
+          span: "snare",
+          drumSound: "assets/sounds/snare.wav",
+          pianoSound: "assets/sounds/piano/si.wav",
+        },
+        {
+          dataKey: "75",
+          kbd: "K",
+          span: "tom",
+          drumSound: "assets/sounds/tom.wav",
+          pianoSound: "assets/sounds/piano/do.wav",
+        },
+        {
+          dataKey: "76",
+          kbd: "L",
+          span: "tink",
+          drumSound: "assets/sounds/tink.wav",
+          pianoSound: "assets/sounds/piano/do.wav",
+        },
+      ];
+
+      arrayKeys.map((a) => {
+        const div = document.createElement("div");
+        const kbd = document.createElement("kbd");
+        const span = document.createElement("span");
+        const audio = document.createElement("audio");
+
+        div.className = "key";
+        div.dataset.key = a.dataKey;
+
+        kbd.innerHTML = a.kbd;
+
+        span.innerHTML = a.span;
+
+        audio.dataset.key = a.dataKey;
+        audio.src = a.drumSound;
+
+        div.append(kbd);
+        div.append(span);
+        keys.append(div);
+
+        document.body.append(audio);
+      });
+
+      const play = (code) => {
+        const audio = document.querySelector(`audio[data-key="${code}"]`);
+        const key = document.querySelector(`div[data-key="${code}"]`);
+
+        if (!audio) return;
+
+        key.classList.add("playing");
+        audio.play();
+        audio.currentTime = 0;
+      };
+
+      const stop = (code) => {
+        const key = document.querySelector(`div[data-key="${code}"]`);
+        if (key !== null) key.classList.remove("playing");
+      };
+
+      document.addEventListener("keydown", (e) => play(e.keyCode));
+      document.addEventListener("keyup", (e) => stop(e.keyCode));
+
+      let div = document.getElementsByClassName("key");
+
+      let arr = Array.from(div);
+
+      arr.forEach((el) => {
+        el.onclick = () => {
+          play(el.dataset.key);
+          setTimeout(() => stop(el.dataset.key), 100);
+        };
+      });
+
+      function changeSound(e) {
+        const value = e.value;
+        const audio = document.getElementsByTagName("audio");
+
+        for (let i = 0; i < arrayKeys.length; i++) {
+          if (value === "btn1") {
+            audio[i].attributes[1].value = arrayKeys[i].drumSound;
+          } else {
+            audio[i].attributes[1].value = arrayKeys[i].pianoSound;
+          }
+        }
+      }
+
+      let isChangeTheme = false;
+
+      function changeTheme() {
+        isChangeTheme = !isChangeTheme;
+        const html = document.documentElement;
+        const button = document.querySelector(
+          "button[class='theme-change-btn']"
+        );
+        const div = Array.from(document.getElementsByClassName("key"));
+        const instrumentBtn = Array.from(
+          document.getElementsByClassName("btn")
+        );
+
+        if (isChangeTheme) {
+          html.classList.add("light-theme");
+          button.innerHTML = "Dark Theme";
+          button.classList.add("dark-btn");
+          div.map((d) => d.classList.add("dark-div"));
+          instrumentBtn.map((i) => i.classList.add("dark-btn"));
+        } else {
+          html.classList.remove("light-theme");
+          const button = document.querySelector(
+            "button[class='theme-change-btn dark-btn']"
+          );
+          button.innerHTML = "Ligth Theme";
+          button.classList.remove("dark-btn");
+          div.map((d) => d.classList.remove("dark-div"));
+          instrumentBtn.map((i) => i.classList.remove("dark-btn"));
+        }
+      }
+    </script>
+  </body>
+</html>
